@@ -1,0 +1,12 @@
+{
+  "client": {
+    "source": "web-client",
+    "plugin": "zcatalyst-cli-plugin-react"
+  },
+  "appsail": [
+    {
+      "source": ".",
+      "name": "appsail"
+    }
+  ]
+}
