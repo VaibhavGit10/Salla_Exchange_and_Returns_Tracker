@@ -1,0 +1,7 @@
+{
+  "name": "web-client",
+  "version": "0.0.1",
+  "homepage": "index.html",
+  "login_redirect": "/app/",
+  "404": "custom404.html"
+}

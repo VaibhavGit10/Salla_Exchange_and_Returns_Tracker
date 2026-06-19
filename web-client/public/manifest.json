@@ -1,0 +1,9 @@
+{
+  "short_name": "ReturnXchange",
+  "name": "ReturnXchange — Returns & Exchanges",
+  "icons": [],
+  "start_url": "/app/",
+  "display": "standalone",
+  "theme_color": "#4f46e5",
+  "background_color": "#0b1020"
+}
