@@ -11,16 +11,17 @@
 ## Table of Contents
 
 1. [Project Overview](#-project-overview)
-2. [How It Works](#-how-it-works)
-3. [Repository Structure](#-repository-structure)
-4. [Prerequisites](#-prerequisites)
-5. [Setup & Configuration](#️-setup--configuration)
-6. [Running & Deploying](#-running--deploying)
-7. [Auto-Execute Capabilities](#-auto-execute-capabilities)
-8. [Going Live](#-going-live)
-9. [Troubleshooting](#-troubleshooting)
-10. [Additional Tips](#-additional-tips)
-11. [License](#-license)
+2. [Architecture Flow](#-architecture-flow)
+3. [How It Works](#-how-it-works)
+4. [Repository Structure](#-repository-structure)
+5. [Prerequisites](#-prerequisites)
+6. [Setup & Configuration](#️-setup--configuration)
+7. [Running & Deploying](#-running--deploying)
+8. [Auto-Execute Capabilities](#-auto-execute-capabilities)
+9. [Going Live](#-going-live)
+10. [Troubleshooting](#-troubleshooting)
+11. [Additional Tips](#-additional-tips)
+12. [License](#-license)
 
 ---
 
@@ -38,6 +39,56 @@ structured, self-serve flow:
   and records the outcome, so nothing ever breaks.
 
 Built for KSA/GCC Salla merchants, Arabic-first (RTL) with English support.
+
+---
+
+## 🧭 Architecture Flow
+
+```mermaid
+flowchart TD
+    MER["🧑‍💼 Merchant — Salla Dashboard"]
+    CUS["🛍️ Customer — Storefront / OTP Portal"]
+
+    subgraph WEB["Web Client · React (served at /app)"]
+        CONSOLE["Merchant Console"]
+        PORTAL["Customer Portal"]
+    end
+
+    subgraph BE["Backend · Express + TypeScript (Catalyst AppSail)"]
+        ROUTES["Routes"]
+        SVC["Services<br/>returns · rules · resolution · notifications"]
+        REPO["Repositories"]
+    end
+
+    subgraph CAT["Zoho Catalyst"]
+        DS[("DataStore")]
+        CACHE[("Cache")]
+        FILES[("FileStore")]
+    end
+
+    subgraph SALLA["Salla Merchant API v2"]
+        SAPI["Orders · Transactions<br/>Coupons · Shipments"]
+        HOOK(["Webhooks"])
+    end
+
+    MER --> CONSOLE
+    CUS --> PORTAL
+    CONSOLE -->|"embedded JWT"| ROUTES
+    PORTAL -->|"email-OTP session"| ROUTES
+    ROUTES --> SVC
+    SVC --> REPO
+    REPO --> DS
+    SVC -->|"cache statuses / tokens"| CACHE
+    SVC -->|"return images"| FILES
+    SVC <-->|"orders · refunds · credit · AWB"| SAPI
+    HOOK -->|"HMAC-verified · 200-fast + async"| ROUTES
+```
+
+**How to read it:** both entry points reach one backend. The store identity is taken **only** from
+Salla's introspected token (never the browser). Requests flow `Routes → Services → Repositories`,
+data lives in Catalyst (DataStore for records, Cache for hot lookups, FileStore for images), and
+outbound calls to Salla are **capability-gated** (see the matrix below). Salla webhooks loop back in
+to keep returns in sync automatically.
 
 ---
 
