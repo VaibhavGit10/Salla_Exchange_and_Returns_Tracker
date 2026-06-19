@@ -1,0 +1,15 @@
+{
+  "name": "salla-returns-v2",
+  "private": true,
+  "version": "2.0.0",
+  "description": "Salla Returns & Exchanges v2 — embedded merchant console + storefront return portal on Zoho Catalyst",
+  "scripts": {
+    "install:all": "npm i --prefix appsail && npm i --prefix web-client",
+    "build:appsail": "npm run build --prefix appsail",
+    "build:web": "npm run build --prefix web-client",
+    "build": "npm run build:appsail && npm run build:web",
+    "test:appsail": "npm test --prefix appsail",
+    "deploy": "npm run build && catalyst deploy",
+    "start": "npm start --prefix appsail"
+  }
+}

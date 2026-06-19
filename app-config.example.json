@@ -1,0 +1,53 @@
+{
+  "command": "npm start",
+  "build_path": "appsail",
+  "stack": "node18",
+  "memory": 512,
+  "env_variables": {
+    "NODE_ENV": "production",
+    "TZ": "Asia/Riyadh",
+
+    "APP_BASE_URL": "https://<your-appsail-host>.catalystappsail.in",
+    "DASHBOARD_URL": "https://<your-webclient-host>.catalystserverless.in/app",
+
+    "SALLA_OAUTH_MODE": "easy",
+    "SALLA_APP_ID": "<salla-app-id>",
+    "SALLA_CLIENT_ID": "<salla-client-id>",
+    "SALLA_CLIENT_SECRET": "__SET_IN_CATALYST_ENV__",
+    "SALLA_OAUTH_TOKEN_URL": "https://accounts.salla.sa/oauth2/token",
+    "SALLA_OAUTH_AUTHORIZE_URL": "https://accounts.salla.sa/oauth2/auth",
+    "SALLA_API_BASE_URL": "https://api.salla.dev",
+    "SALLA_INTROSPECT_URL": "https://api.salla.dev/exchange-authority/v1/introspect",
+    "SALLA_INSTALL_URL_BASE": "https://s.salla.sa/apps/install",
+    "SALLA_TOKEN_REFRESH_SKEW_SECONDS": "120",
+
+    "SALLA_REFUND_AUTO": "false",
+    "SALLA_STORE_CREDIT_AUTO": "false",
+    "SALLA_RETURN_AWB_AUTO": "false",
+
+    "SALLA_WEBHOOK_SECRET": "__SET_IN_CATALYST_ENV__",
+
+    "SECURITY_PEPPER": "__SET_IN_CATALYST_ENV__",
+    "ENCRYPTION_KEY_B64": "__SET_IN_CATALYST_ENV__",
+    "SESSION_SECRET": "__SET_IN_CATALYST_ENV__",
+    "CRON_SECRET": "__SET_IN_CATALYST_ENV__",
+
+    "SESSION_TTL_SECONDS": "7200",
+    "PORTAL_SESSION_TTL_SECONDS": "14400",
+    "PORTAL_SESSION_TOUCH_INTERVAL_SECONDS": "300",
+    "OTP_TTL_SECONDS": "600",
+    "OTP_MAX_ATTEMPTS": "3",
+    "OTP_LOCKOUT_SECONDS": "900",
+    "OTP_RATE_LIMIT_WINDOW_SECONDS": "300",
+    "OTP_RATE_LIMIT_MAX_IN_WINDOW": "5",
+    "OTP_FROM_EMAIL": "<sender@example.com>",
+
+    "FILESTORE_FOLDER_ID": "<catalyst-filestore-folder-id>",
+    "TENANT_CACHE_SEGMENT_ID": "<catalyst-cache-segment-id>",
+    "DATA_RETENTION_DAYS": "365",
+    "ATTACHMENT_RETENTION_DAYS": "90",
+
+    "_NOTE": "Copy to app-config.json and fill values. Secrets marked __SET_IN_CATALYST_ENV__ MUST be set in Catalyst Console > Environment Variables, never committed. DEV_DIRECT_LOGIN/DEV_DIRECT_STORE_ID are local-preview only and must be omitted in production."
+  },
+  "scripts": {}
+}
